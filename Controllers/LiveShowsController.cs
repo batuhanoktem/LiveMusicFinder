@@ -95,7 +95,7 @@ namespace LiveMusicFinder.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Atrist,Venue,ShowDate")] LiveShow liveShow)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Artist,Venue,ShowDate")] LiveShow liveShow)
         {
             var currentUser = User.Identity.Name;
             if (id != liveShow.Id)
