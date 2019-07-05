@@ -23,9 +23,44 @@ namespace LiveMusicFinder.Controllers
         // GET: LiveShows
 
         [Authorize]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            return View(await _context.LiveShows.ToListAsync());
+            ViewData["ArtistSortParam"] = string.IsNullOrEmpty(sortOrder) ? "artist_desc" : "";
+            ViewData["VenueSortParam"] = sortOrder == "Venue" ? "venue_desc" : "Venue";
+            ViewData["ShowDateSortParam"] = sortOrder == "ShowDate" ? "show_date_desc" : "ShowDate";
+            ViewData["EnteredBySortParam"] = sortOrder == "EnteredBy" ? "entered_by_desc" : "EnteredBy";
+
+            List<LiveShow> liveShows;
+
+            switch (sortOrder)
+            {
+                case "artist_desc":
+                    liveShows = await _context.LiveShows.OrderByDescending(l => l.Artist).ToListAsync();
+                    break;
+                case "Venue":
+                    liveShows = await _context.LiveShows.OrderBy(l => l.Venue).ToListAsync();
+                    break;
+                case "venue_desc":
+                    liveShows = await _context.LiveShows.OrderByDescending(l => l.Venue).ToListAsync();
+                    break;
+                case "ShowDate":
+                    liveShows = await _context.LiveShows.OrderBy(l => l.ShowDate).ToListAsync();
+                    break;
+                case "show_date_desc":
+                    liveShows = await _context.LiveShows.OrderByDescending(l => l.ShowDate).ToListAsync();
+                    break;
+                case "EnteredBy":
+                    liveShows = await _context.LiveShows.OrderBy(l => l.EnteredBy).ToListAsync();
+                    break;
+                case "entered_by_desc":
+                    liveShows = await _context.LiveShows.OrderByDescending(l => l.EnteredBy).ToListAsync();
+                    break;
+                default:
+                    liveShows = await _context.LiveShows.OrderBy(l => l.Artist).ToListAsync();
+                    break;
+            }
+
+            return View(liveShows);
         }
 
         // GET: LiveShows/Details/5
