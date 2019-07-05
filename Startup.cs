@@ -51,7 +51,8 @@ namespace LiveMusicFinder
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=LiveMusicFinder.db"));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(@"Data Source=M:\ErgunBatuhan\Documents\Visual Studio 2019\Projects\LiveMusicFinder\LiveMusicFinder\bin\Debug\netcoreapp2.2\LiveMusicFinder.db"));
+            //services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=LiveMusicFinder.db"));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

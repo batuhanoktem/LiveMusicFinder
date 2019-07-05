@@ -14,4 +14,11 @@
     <PackageReference Include="Okta.AspNetCore" Version="1.1.5" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <None Update="LiveMusicFinder.db">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
