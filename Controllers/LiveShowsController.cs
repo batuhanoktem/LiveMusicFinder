@@ -86,6 +86,12 @@ namespace LiveMusicFinder.Controllers
             {
                 return NotFound();
             }
+
+            if (liveShow.EnteredBy != User.Identity.Name)
+            {
+                return Unauthorized();
+            }
+
             return View(liveShow);
         }
 
@@ -112,7 +118,7 @@ namespace LiveMusicFinder.Controllers
                     existingShow.Artist = liveShow.Artist;
                     existingShow.Venue = liveShow.Venue;
                     existingShow.ShowDate = liveShow.ShowDate;
-                    existingShow.EnteredBy = currentUser;
+                    //existingShow.EnteredBy = currentUser;
 
                     if(existingShow.EnteredBy != User.Identity.Name)
                     {
