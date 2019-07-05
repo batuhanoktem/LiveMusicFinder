@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using LiveMusicFinder.Data;
 using LiveMusicFinder.Models;
 using Microsoft.AspNetCore.Authorization;
+using LiveMusicFinder.Helpers;
 
 namespace LiveMusicFinder.Controllers
 {
@@ -84,8 +85,9 @@ namespace LiveMusicFinder.Controllers
 
         // GET: LiveShows/Create
         [Authorize]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            ViewData["Venues"] = await VenueHelper.GetVenuesAsync();
             return View();
         }
 
@@ -136,6 +138,7 @@ namespace LiveMusicFinder.Controllers
                 return Unauthorized();
             }
 
+            ViewData["Venues"] = await VenueHelper.GetVenuesAsync();
             return View(liveShow);
         }
 
