@@ -100,9 +100,18 @@ namespace LiveMusicFinder.Controllers
             liveShow.EnteredBy = User.Identity.Name;
             if (ModelState.IsValid)
             {
-                _context.Add(liveShow);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                int count = _context.LiveShows.Where(l => l.Artist == liveShow.Artist && l.ShowDate.Year == liveShow.ShowDate.Year && l.ShowDate.Month == liveShow.ShowDate.Month && l.ShowDate.Day == liveShow.ShowDate.Day).Count();
+
+                if (count == 0)
+                {
+                    _context.Add(liveShow);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Same artist cannot have more than one event on the same date");
+                }
             }
             return View(liveShow);
         }
