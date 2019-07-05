@@ -60,7 +60,7 @@ namespace LiveMusicFinder.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Create([Bind("Id,Atrist,Venue,ShowDate")] LiveShow liveShow)
+        public async Task<IActionResult> Create([Bind("Id,Artist,Venue,ShowDate")] LiveShow liveShow)
         {
             liveShow.EnteredBy = User.Identity.Name;
             if (ModelState.IsValid)
